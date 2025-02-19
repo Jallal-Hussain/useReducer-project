@@ -1,0 +1,29 @@
+.quiz-question {
+  margin-bottom: 20px;
+}
+
+.quiz-question h2 {
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.quiz-question .answers {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.quiz-question .answers button {
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  background-color: #007bff;
+  color: white;
+}
+
+.quiz-question .answers button:hover {
+  background-color: #0056b3;
+}
