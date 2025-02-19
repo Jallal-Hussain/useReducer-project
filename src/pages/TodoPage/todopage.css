@@ -1,0 +1,9 @@
+.todo-page {
+  width: 600px;
+  margin: 20px;
+  padding: 10px 20px;
+  text-align: center;
+  background-color: #83daf5;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
