@@ -1,18 +1,22 @@
 import React from "react";
 import "./QuizQuestion.css";
 
-const QuizQuestion = ({ question, handleAnswer }) => {
+const QuizQuestion = ({ question, handleAnswer, timer }) => {
   const allAnswers = [
     ...question.incorrect_answers,
     question.correct_answer,
-  ].sort(() => Math.random() - 0.5);
+  ];
 
   return (
     <div className="quiz-question">
-      <h2>{question.question}</h2>
+      <h3>{question.question}</h3>
       <div className="answers">
         {allAnswers.map((answer, index) => (
-          <button key={index} onClick={() => handleAnswer(answer)}>
+          <button
+            key={index}
+            disabled={timer === 0 ? true : false}
+            onClick={() => handleAnswer(answer)}
+          >
             {answer}
           </button>
         ))}

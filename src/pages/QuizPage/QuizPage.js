@@ -3,17 +3,18 @@ import QuizQuestion from "./components/QuizQuestion";
 import QuizTimer from "./components/QuizTimer";
 import QuizResults from "./components/QuizResults";
 import QuizHint from "./components/QuizHint";
+import { questions } from "./QuizData";
 import "./quizpage.css";
-import axios from "axios";
 
 const initialState = {
-  questions: [], // Array of questions fetched from the API
-  currentQuestionIndex: 0, // Index of the current question
-  score: 0, // User's score
-  timer: 30, // Timer for each question
-  showHint: false, // Whether to show a hint
-  isQuizOver: false, // Whether the quiz is over
-  difficulty: "easy", // Difficulty level
+  questions: questions,
+  currentQuestionIndex: 0,
+  score: 0,
+  timer: 10,
+  isStart: false,
+  showHint: false,
+  isQuizOver: false,
+  difficulty: "easy",
 };
 
 const quizReducer = (state, action) => {
@@ -36,20 +37,26 @@ const quizReducer = (state, action) => {
         ...state,
         score: isCorrect ? state.score + 1 : state.score,
         currentQuestionIndex: state.currentQuestionIndex + 1,
-        timer: 30, // Reset timer for the next question
-        showHint: false, // Hide hint for the next question
+        timer: 10,
+        showHint: false,
         isQuizOver: state.currentQuestionIndex + 1 >= state.questions.length,
       };
     case "UPDATE_TIMER":
+      const timeout = state.timer === 0;
       return {
         ...state,
         timer: state.timer - 1,
-        isQuizOver: state.timer === 0 || state.isQuizOver,
+        isQuizOver: timeout || state.isQuizOver,
       };
     case "SHOW_HINT":
       return {
         ...state,
         showHint: true,
+      };
+    case "START_QUIZ":
+      return {
+        ...state,
+        isStart: true,
       };
     case "RESET_QUIZ":
       return initialState;
@@ -61,29 +68,14 @@ const quizReducer = (state, action) => {
 const QuizPage = () => {
   const [state, dispatch] = useReducer(quizReducer, initialState);
 
-  const fetchQuestions = async (difficulty, dispatch) => {
-    try {
-      const response = await axios.get(
-        `https://opentdb.com/api.php?amount=10&difficulty=${difficulty}&type=multiple`
-      );
-      dispatch({ type: "FETCH_QUESTIONS", payload: response.data.results });
-    } catch (error) {
-      console.error("Error fetching questions:", error);
-    }
-  };
-
   useEffect(() => {
-    fetchQuestions(state.difficulty, dispatch);
-  }, [state.difficulty]);
-
-  useEffect(() => {
-    if (state.timer > 0 && !state.isQuizOver) {
+    if (state.timer > 0 && !state.isQuizOver && state.isStart) {
       const timerId = setTimeout(() => {
         dispatch({ type: "UPDATE_TIMER" });
       }, 1000);
       return () => clearTimeout(timerId);
     }
-  }, [state.timer, state.isQuizOver]);
+  }, [state.timer, state.isQuizOver, state.isStart]);
 
   const handleAnswer = (answer) => {
     dispatch({ type: "ANSWER_QUESTION", payload: answer });
@@ -96,6 +88,9 @@ const QuizPage = () => {
   const handleReset = () => {
     dispatch({ type: "RESET_QUIZ" });
   };
+  const handleStart = () => {
+    dispatch({ type: "START_QUIZ" });
+  };
 
   const handleDifficultyChange = (e) => {
     dispatch({ type: "SET_DIFFICULTY", payload: e.target.value });
@@ -103,13 +98,38 @@ const QuizPage = () => {
 
   return (
     <div className="quiz-page">
-      <h1>Quiz App</h1>
-      {!state.isQuizOver && state.questions.length > 0 ? (
+      <h3>Quiz App</h3>
+      {state.isStart && state.timer <= 0 ? (
+        <button className="btn" onClick={handleReset}>
+          Reset Quiz
+        </button>
+      ) : null}
+      {!state.isStart && (
+        <>
+          <button className="btn" onClick={handleStart}>
+            Start
+          </button>
+          <div className="difficulty-selector">
+            <label>Difficulty:</label>
+            <select
+              value={state.difficulty}
+              onChange={handleDifficultyChange}
+              disabled={state.isStart}
+            >
+              <option value="easy">Easy</option>
+              <option value="medium">Medium</option>
+              <option value="hard">Hard</option>
+            </select>
+          </div>
+        </>
+      )}
+      {!state.isQuizOver && state.questions.length > 0 && state.isStart ? (
         <>
           <QuizTimer timer={state.timer} />
           <QuizQuestion
             question={state.questions[state.currentQuestionIndex]}
             handleAnswer={handleAnswer}
+            timer={state.timer}
           />
           <QuizHint
             showHint={state.showHint}
@@ -119,25 +139,13 @@ const QuizPage = () => {
             }
           />
         </>
-      ) : (
+      ) : state.isStart ? (
         <QuizResults
           score={state.score}
           totalQuestions={state.questions.length}
           handleReset={handleReset}
         />
-      )}
-      <div className="difficulty-selector">
-        <label>Difficulty:</label>
-        <select
-          value={state.difficulty}
-          onChange={handleDifficultyChange}
-          disabled={state.questions.length > 0}
-        >
-          <option value="easy">Easy</option>
-          <option value="medium">Medium</option>
-          <option value="hard">Hard</option>
-        </select>
-      </div>
+      ) : null}
     </div>
   );
 };

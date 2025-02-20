@@ -1,0 +1,86 @@
+export const questions = [
+  {
+    category: "Entertainment: Video Games",
+    correct_answer: "An enemy in the game",
+    difficulty: "easy",
+    incorrect_answers: [
+      "The final boss&#039;s name",
+      "The main character&#039;s name",
+      "A spaceship&#039;s name",
+    ],
+    question: "Question 1",
+    type: "multiple",
+  },
+  {
+    category: "Entertainment: Video Games",
+    correct_answer: "An enemy in the game",
+    difficulty: "easy",
+    incorrect_answers: [
+      "The final boss&#039;s name",
+      "The main character&#039;s name",
+      "A spaceship&#039;s name",
+    ],
+    question: "Question 2",
+    type: "multiple",
+  },
+  {
+    category: "Entertainment: Video Games",
+    correct_answer: "An enemy in the game",
+    difficulty: "medium",
+    incorrect_answers: [
+      "The final boss&#039;s name",
+      "The main character&#039;s name",
+      "A spaceship&#039;s name",
+    ],
+    question: "Question 3",
+    type: "multiple",
+  },
+  {
+    category: "Entertainment: Video Games",
+    correct_answer: "An enemy in the game",
+    difficulty: "easy",
+    incorrect_answers: [
+      "The final boss&#039;s name",
+      "The main character&#039;s name",
+      "A spaceship&#039;s name",
+    ],
+    question: "Question 4",
+    type: "multiple",
+  },
+  {
+    category: "Entertainment: Video Games",
+    correct_answer: "An enemy in the game",
+    difficulty: "medium",
+    incorrect_answers: [
+      "The final boss&#039;s name",
+      "The main character&#039;s name",
+      "A spaceship&#039;s name",
+    ],
+    question: "Question 5",
+    type: "multiple",
+  },
+  {
+    category: "Entertainment: Video Games",
+    correct_answer: "An enemy in the game",
+    difficulty: "easy",
+    incorrect_answers: [
+      "The final boss&#039;s name",
+      "The main character&#039;s name",
+      "A spaceship&#039;s name",
+    ],
+    question: "Question 6",
+    type: "multiple",
+  },
+  {
+    category: "Entertainment: Video Games",
+    correct_answer: "An enemy in the game",
+    difficulty: "easy",
+    incorrect_answers: [
+      "The final boss&#039;s name",
+      "The main character&#039;s name",
+      "A spaceship&#039;s name",
+    ],
+    question: "Question 7",
+    type: "multiple",
+  },
+];
