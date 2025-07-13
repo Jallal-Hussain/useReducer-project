@@ -10,7 +10,7 @@ const initialState = {
   questions: questions,
   currentQuestionIndex: 0,
   score: 0,
-  timer: 10,
+  timer: 60,
   isStart: false,
   showHint: false,
   isQuizOver: false,
@@ -35,7 +35,7 @@ const quizReducer = (state, action) => {
         ...state,
         score: isCorrect ? state.score + 1 : state.score,
         currentQuestionIndex: state.currentQuestionIndex + 1,
-        timer: 10,
+        timer: 60,
         showHint: false,
         isQuizOver: state.currentQuestionIndex + 1 >= state.questions.length,
       };
@@ -61,7 +61,7 @@ const quizReducer = (state, action) => {
         ...state,
         currentQuestionIndex: state.currentQuestionIndex + 1,
         showHint: false,
-        timer: 10,
+        timer: 60,
       };
     case "RESET_QUIZ":
       return initialState;
@@ -134,17 +134,17 @@ const QuizPage = () => {
       {!state.isQuizOver && state.questions.length > 0 && state.isStart ? (
         <>
           <QuizTimer timer={state.timer} />
-          <QuizQuestion
-            question={state.questions[state.currentQuestionIndex]}
-            handleAnswer={handleAnswer}
-            timer={state.timer}
-          />
           <QuizHint
             showHint={state.showHint}
             handleShowHint={handleShowHint}
             hint={
               state.questions[state.currentQuestionIndex]?.incorrect_answers
             }
+          />
+          <QuizQuestion
+            question={state.questions[state.currentQuestionIndex]}
+            handleAnswer={handleAnswer}
+            timer={state.timer}
           />
         </>
       ) : state.isStart ? (

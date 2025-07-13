@@ -1,7 +1,24 @@
 .quiz-timer {
   margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.quiz-timer p {
-  margin-bottom: 20px;
+.quiz-timer h3 {
+  background: #e3f6fc;
+  color: #282c34;
+  padding: 8px 24px;
+  border-radius: 24px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 0;
+  letter-spacing: 1px;
+  box-shadow: 0 1px 4px rgba(97,218,251,0.08);
+  transition: background 0.2s, color 0.2s;
+}
+
+.quiz-timer h3[style*='color'] {
+  background: #ffeaea;
+  color: #dc3545 !important;
 }
