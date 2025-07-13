@@ -55,17 +55,26 @@
   word-break: break-word;
 }
 
-.quiz-question .answers button:hover:not(:disabled),
-.quiz-question .answers button:focus:not(:disabled) {
-  background: #61dafb;
-  color: #fff;
-  transform: translateY(-2px) scale(1.04);
+.quiz-question .answers button.correct {
+  background: #28a745 !important;
+  color: #fff !important;
+}
+
+.quiz-question .answers button.incorrect {
+  background: #dc3545 !important;
+  color: #fff !important;
 }
 
 .quiz-question .answers button:disabled {
   background: #eee;
   color: #aaa;
   cursor: not-allowed;
+}
+
+.quiz-question .feedback {
+  font-size: 1.1rem;
+  padding: 8px 0;
+  text-align: center;
 }
 
 @media (max-width: 700px) {

@@ -42,7 +42,7 @@
   transform: translateY(-2px) scale(1.04);
 }
 
-.quiz-page .difficulty-selector {
+.quiz-page .selector {
   margin: 20px 0 32px 0;
   display: flex;
   flex-direction: column;
@@ -50,13 +50,13 @@
   width: 100%;
 }
 
-.quiz-page .difficulty-selector label {
+.quiz-page .selector label {
   margin-bottom: 6px;
   color: #444;
   font-weight: 500;
 }
 
-.quiz-page .difficulty-selector select {
+.quiz-page .selector select {
   width: 100%;
   padding: 10px;
   font-size: 1rem;
