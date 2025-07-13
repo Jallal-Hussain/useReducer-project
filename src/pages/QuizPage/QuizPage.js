@@ -30,9 +30,7 @@ const quizReducer = (state, action) => {
         difficulty: action.payload,
       };
     case "ANSWER_QUESTION":
-      const isCorrect =
-        action.payload ===
-        state.questions[state.currentQuestionIndex].correct_answer;
+      const isCorrect = action.payload === state.questions[state.currentQuestionIndex].correct_answer;
       return {
         ...state,
         score: isCorrect ? state.score + 1 : state.score,
@@ -58,6 +56,13 @@ const quizReducer = (state, action) => {
         ...state,
         isStart: true,
       };
+    case "NEXT_QUESTION":
+      return {
+        ...state,
+        currentQuestionIndex: state.currentQuestionIndex + 1,
+        showHint: false,
+        timer: 10,
+      };
     case "RESET_QUIZ":
       return initialState;
     default:
@@ -74,6 +79,9 @@ const QuizPage = () => {
         dispatch({ type: "UPDATE_TIMER" });
       }, 1000);
       return () => clearTimeout(timerId);
+    }
+    if(state.timer === 0){
+      dispatch({ type: "NEXT_QUESTION" });
     }
   }, [state.timer, state.isQuizOver, state.isStart]);
 
